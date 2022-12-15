@@ -60,6 +60,7 @@ public class AirbyteApiClient {
   private final AttemptApi attemptApi;
   private final StateApi stateApi;
 
+  @SuppressWarnings("PMD.UnusedFormalParameter")
   public AirbyteApiClient(final ApiClient apiClient, final ApiClient micronautApiClient) {
     connectionApi = new ConnectionApi(micronautApiClient);
     destinationDefinitionApi = new DestinationDefinitionApi(micronautApiClient);
