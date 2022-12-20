@@ -1,4 +1,5 @@
 import { Form, Formik, useField } from "formik";
+import merge from "lodash/merge";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -8,7 +9,7 @@ import { Modal, ModalBody, ModalFooter } from "components/ui/Modal";
 import { FormikPatch } from "core/form/FormikPatch";
 
 import { ReactComponent as PlusIcon } from "../../connection/ConnectionOnboarding/plusIcon.svg";
-import { BuilderStream } from "../types";
+import { BuilderStream, DEFAULT_BUILDER_STREAM_VALUES } from "../types";
 import styles from "./AddStreamButton.module.scss";
 import { BuilderField } from "./BuilderField";
 
@@ -42,17 +43,10 @@ export const AddStreamButton: React.FC<AddStreamButtonProps> = ({ onAddStream })
           onSubmit={(values: AddStreamValues) => {
             helpers.setValue([
               ...streamsField.value,
-              {
+              merge(DEFAULT_BUILDER_STREAM_VALUES, {
                 name: values.streamName,
                 urlPath: values.urlPath,
-                fieldPointer: [],
-                httpMethod: "GET",
-                requestOptions: {
-                  requestParameters: [],
-                  requestHeaders: [],
-                  requestBody: [],
-                },
-              },
+              }),
             ]);
             setIsOpen(false);
             onAddStream(numStreams);
